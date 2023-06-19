@@ -1,3 +1,6 @@
+//TODO: fix the bug where you can't do the 3rd operation
+//like i give a shit lmfao
+
 let num1;
 let num2;
 let operator;
@@ -59,12 +62,23 @@ numbers.forEach(number => {
 let operation = document.querySelectorAll(".operation");
 operation.forEach(operation => {
     operation.addEventListener("click" , (e) => {
-        editNum1 = false;
-        console.log(operation.innerHTML);
-        operator = operation.innerHTML;
-        num1 = parseInt(numResult)
-        numResult = '';
-        display.innerHTML = operator;
+        if (editNum1 == true) {
+            editNum1 = false;
+            console.log(operation.innerHTML);
+            operator = operation.innerHTML;
+            num1 = parseInt(numResult);
+            numResult = '';
+        }else if(editNum1 == false) {
+            editNum1 = true;
+            console.log(operation.innerHTML);
+            operator = operation.innerHTML;
+            num2 = parseInt(numResult);
+            numResult = '';
+            temp = operate(num1,num2,operator);
+            num1 = temp;
+        
+            display.innerHTML = temp;
+        }
     })
 })
 
@@ -73,6 +87,7 @@ equal.addEventListener("click" , (e) => {
     editNum1 = true;
     console.log("=");
     num2 = parseInt(numResult);
+    console.log(num1 + operator + num2)
     display.innerHTML = operate(num1,num2,operator);
     console.log(display.innerHTML)
     num2 = 0;
